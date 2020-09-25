@@ -15,10 +15,10 @@ class JsonUtil {
   }
 
   /// Converts JSON string [source] to object.
-  static T getObj<T>(String source, T f(Map v)) {
+  static T getObj<T>(String source, T f(Map<String, dynamic> v)) {
     if (source == null || source.isEmpty) return null;
     try {
-      Map map = json.decode(source);
+      Map<String, dynamic> map = json.decode(source) as Map<String, dynamic>;
       return map == null ? null : f(map);
     } catch (e) {
       print('JsonUtil convert error, Exception：${e.toString()}');
@@ -32,9 +32,9 @@ class JsonUtil {
     try {
       Map map;
       if (source is String) {
-        map = json.decode(source);
+        map = json.decode(source) as Map;
       } else {
-        map = source;
+        map = source as Map;
       }
       return map == null ? null : f(map);
     } catch (e) {
@@ -44,12 +44,12 @@ class JsonUtil {
   }
 
   /// Converts JSON string list [source] to object list.
-  static List<T> getObjList<T>(String source, T f(Map v)) {
+  static List<T> getObjList<T>(String source, T f(Map<String, dynamic> v)) {
     if (source == null || source.isEmpty) return null;
     try {
-      List list = json.decode(source);
-      return list?.map((value) {
-        return f(value);
+      List list = json.decode(source) as List;
+      return list?.map((dynamic value) {
+        return f(value as Map<String, dynamic>);
       })?.toList();
     } catch (e) {
       print('JsonUtil convert error, Exception：${e.toString()}');
@@ -63,12 +63,12 @@ class JsonUtil {
     try {
       List list;
       if (source is String) {
-        list = json.decode(source);
+        list = json.decode(source) as List;
       } else {
-        list = source;
+        list = source as List;
       }
-      return list?.map((value) {
-        return f(value);
+      return list?.map((dynamic value) {
+        return f(value as Map<String, dynamic>);
       })?.toList();
     } catch (e) {
       print('JsonUtil convert error, Exception：${e.toString()}');
